@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0f766e">
+    <meta name="description" content="간편한 메모 작성 및 관리 앱">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="메모장">
+    <title>&#xBA54;&#xBAA8;&#xC7A5; | Memo</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%230f766e' width='192' height='192'/><text x='96' y='120' font-size='80' font-weight='bold' text-anchor='middle' fill='white' font-family='system-ui'>M</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%230f766e' width='180' height='180'/><text x='90' y='120' font-size='75' font-weight='bold' text-anchor='middle' fill='white' font-family='system-ui'>M</text></svg>">
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar" aria-label="&#xBA54;&#xBAA8; &#xBAA9;&#xB85D;">
+        <div class="brand-row">
+          <div><p class="eyebrow">MY NOTES</p><h1>&#xBA54;&#xBAA8;&#xC7A5;</h1></div>
+          <div class="brand-actions"><button id="settingsButton" class="icon-button" aria-label="&#xC124;&#xC815;" title="&#xC124;&#xC815;">&#x2699;</button><button id="themeToggle" class="icon-button" aria-label="&#xB2E4;&#xD06C; &#xBAA8;&#xB4DC; &#xC804;&#xD658;" title="&#xB2E4;&#xD06C; &#xBAA8;&#xB4DC; &#xC804;&#xD658;">&#x263E;</button></div>
+        </div>
+        <button id="newNote" class="new-note-button">+ &#xC0C8; &#xBA54;&#xBAA8;</button>
+        <label class="import-button" for="importFile">&#x2191; .txt &#xD30C;&#xC77C; &#xBD88;&#xB7EC;&#xC624;&#xAE30;</label><input id="importFile" type="file" accept="text/plain,.txt" hidden>
+        <button id="backupNotes" class="backup-button">&#x21E9; &#xBAA8;&#xB4E0; &#xBA54;&#xBAA8; &#xBC31;&#xC5C5;</button>
+        <label class="search-box"><span>&#x2315;</span><input id="searchNotes" type="search" placeholder="&#xBA54;&#xBAA8; &#xAC80;&#xC0C9;" aria-label="&#xBA54;&#xBAA8; &#xAC80;&#xC0C9;"></label>
+        <select id="categoryFilter" class="category-filter" aria-label="&#xCE74;&#xD14C;&#xACE0;&#xB9AC; &#xD544;&#xD130;"><option value="">&#xBAA8;&#xB4E0; &#xCE74;&#xD14C;&#xACE0;&#xB9AC;</option></select>
+        <div class="sidebar-links"><button id="allNotesButton" class="view-button active">&#xBAA8;&#xB4E0; &#xBA54;&#xBAA8;</button><button id="trashButton" class="view-button">&#x1F5D1; &#xD734;&#xC9C0;&#xD1B5;</button></div>
+        <p id="noteCount" class="note-count"></p>
+        <div id="noteList" class="note-list" aria-live="polite"></div>
+      </aside>
+      <section class="editor-panel" aria-label="&#xBA54;&#xBAA8; &#xD3B8;&#xC9D1;&#xAE30;">
+        <div class="editor-toolbar">
+          <p id="saveStatus" class="save-status">&#xC790;&#xB3D9; &#xC800;&#xC7A5;&#xB428;</p>
+          <div class="actions"><button id="pinNote" class="secondary-button" title="&#xBD81;&#xB9C8;&#xD06C;">&#x2606; &#xBD81;&#xB9C8;&#xD06C;</button><button id="historyButton" class="secondary-button">&#xAE30;&#xB85D;</button><button id="duplicateNote" class="secondary-button">&#xBCF5;&#xC81C;</button><button id="downloadNote" class="secondary-button">&#x2193; .txt</button><button id="restoreNote" class="secondary-button" hidden>&#xBCF5;&#xC6D0;</button><button id="permanentDelete" class="danger-button" hidden>&#xC644;&#xC804; &#xC0AD;&#xC81C;</button><button id="deleteNote" class="danger-button">&#xD734;&#xC9C0;&#xD1B5;</button></div>
+        </div>
+        <div class="editor">
+          <input id="noteTitle" type="text" placeholder="&#xC81C;&#xBAA9; &#xC5C6;&#xC74C;" aria-label="&#xBA54;&#xBAA8; &#xC81C;&#xBAA9;" maxlength="120">
+          <div id="noteMeta" class="note-meta"><input id="noteCategory" type="text" placeholder="&#xCE74;&#xD14C;&#xACE0;&#xB9AC;" maxlength="30"><input id="noteTags" type="text" placeholder="&#xD0DC;&#xADF8; (&#xC26C;&#xD45C;&#xB85C; &#xAD6C;&#xBD84;)" maxlength="120"></div>
+          <textarea id="noteContent" placeholder="&#xC5EC;&#xAE30;&#xC5D0; &#xBA54;&#xBAA8;&#xB97C; &#xC791;&#xC131;&#xD558;&#xC138;&#xC694;&#x2026;" aria-label="&#xBA54;&#xBAA8; &#xB0B4;&#xC6A9;"></textarea>
+        </div>
+        <div class="editor-footer"><p id="updatedAt" class="updated-at"></p><p id="charCount" class="char-count">0&#xC790;</p></div>
+      </section>
+      <footer class="site-footer">
+        <div class="footer-block privacy-notice"><strong>&#xB370;&#xC774;&#xD130; &#xC800;&#xC7A5; &#xBC0F; &#xBC31;&#xC5C5; &#xC548;&#xB0B4;</strong><p>&#xBA54;&#xBAA8;&#xB294; &#xC774; &#xAE30;&#xAE30;&#xC758; &#xBE0C;&#xB77C;&#xC6B0;&#xC800;&#xC5D0;&#xB9CC; &#xC800;&#xC7A5;&#xB418;&#xBA70;, &#xC0AC;&#xC774;&#xD2B8;&#xC640; &#xC11C;&#xBC84;&#xC5D0;&#xB294; &#xC800;&#xC7A5;&#xB418;&#xC9C0; &#xC54A;&#xC2B5;&#xB2C8;&#xB2E4;. &#xBE0C;&#xB77C;&#xC6B0;&#xC800; &#xCE90;&#xC2DC; &#xB610;&#xB294; &#xC0AC;&#xC774;&#xD2B8; &#xB370;&#xC774;&#xD130;&#xB97C; &#xC0AD;&#xC81C;&#xD558;&#xBA74; &#xBA54;&#xBAA8;&#xAC00; &#xC0AC;&#xB77C;&#xC9C8; &#xC218; &#xC788;&#xC73C;&#xB2C8;, &#xC911;&#xC694;&#xD55C; &#xB0B4;&#xC6A9;&#xC740; .txt &#xD30C;&#xC77C;&#xB85C; &#xB2E4;&#xC6B4;&#xB85C;&#xB4DC;&#xD574; &#xBC31;&#xC5C5;&#xD558;&#xC138;&#xC694;.</p></div>
+        <div class="footer-block tech-notice"><strong>&#xAE30;&#xC220; &#xBC0F; &#xC624;&#xD508;&#xC18C;&#xC2A4; &#xC548;&#xB0B4;</strong><p>&#xC774; &#xC11C;&#xBE44;&#xC2A4;&#xB294; &#xC678;&#xBD80; &#xC624;&#xD508;&#xC18C;&#xC2A4; &#xB77C;&#xC774;&#xBE0C;&#xB7EC;&#xB9AC;&#xB098; &#xCD94;&#xC801; &#xB3C4;&#xAD6C;&#xB97C; &#xC0AC;&#xC6A9;&#xD558;&#xC9C0; &#xC54A;&#xC2B5;&#xB2C8;&#xB2E4;. HTML, CSS, JavaScript&#xC640; &#xBE0C;&#xB77C;&#xC6B0;&#xC800;&#xC758; LocalStorage API&#xB85C; &#xB3D9;&#xC791;&#xD569;&#xB2C8;&#xB2E4;.</p><small>&copy; <span id="year"></span> blco Memo</small></div>
+      </footer>
+    </main>
+    <dialog id="settingsDialog" class="app-dialog"><form method="dialog"><div class="dialog-heading"><h2>&#xC124;&#xC815; &#xBC0F; &#xB2E8;&#xCD95;&#xD0A4;</h2><button class="icon-button" value="cancel" aria-label="&#xB2EB;&#xAE30;">&#xD7;</button></div><div class="setting-list"><label><input id="settingAutoTitle" type="checkbox"> &#xBCF8;&#xBB38; &#xCCAB; &#xC904;&#xC744; &#xC790;&#xB3D9; &#xC81C;&#xBAA9;&#xC73C;&#xB85C; &#xC0AC;&#xC6A9;</label><label><input id="settingCategories" type="checkbox"> &#xCE74;&#xD14C;&#xACE0;&#xB9AC; &#xAE30;&#xB2A5; &#xC0AC;&#xC6A9;</label><label><input id="settingTags" type="checkbox"> &#xD0DC;&#xADF8; &#xAE30;&#xB2A5; &#xC0AC;&#xC6A9;</label><label><input id="settingBookmarks" type="checkbox"> &#xBD81;&#xB9C8;&#xD06C; &#xAE30;&#xB2A5; &#xC0AC;&#xC6A9;</label><label><input id="settingTrash" type="checkbox"> &#xD734;&#xC9C0;&#xD1B5; &#xAE30;&#xB2A5; &#xC0AC;&#xC6A9;</label><label><input id="settingHistory" type="checkbox"> &#xBA54;&#xBAA8; &#xBC84;&#xC804; &#xAE30;&#xB85D; &#xC0AC;&#xC6A9;</label><label>&#xBC84;&#xC804; &#xBCF4;&#xAD00; &#xAC1C;&#xC218; <input id="settingHistoryLimit" type="number" min="5" max="100" value="20"></label><label><input id="settingShortcuts" type="checkbox"> &#xD0A4;&#xBCF4;&#xB4DC; &#xB2E8;&#xCD95;&#xD0A4; &#xC0AC;&#xC6A9;</label></div><div class="shortcut-guide"><strong>&#xB2E8;&#xCD95;&#xD0A4;</strong><span>Ctrl/Cmd + N &#xC0C8; &#xBA54;&#xBAA8; &middot; Ctrl/Cmd + F &#xAC80;&#xC0C9; &middot; Ctrl/Cmd + Shift + D &#xBCF5;&#xC81C; &middot; Ctrl/Cmd + Shift + B &#xBD81;&#xB9C8;&#xD06C;</span></div><div class="dialog-actions"><button id="saveSettings" value="default" class="new-note-button">&#xC124;&#xC815; &#xC800;&#xC7A5;</button></div></form></dialog>
+    <dialog id="historyDialog" class="app-dialog"><form method="dialog"><div class="dialog-heading"><h2>&#xBC84;&#xC804; &#xAE30;&#xB85D;</h2><button class="icon-button" value="cancel" aria-label="&#xB2EB;&#xAE30;">&#xD7;</button></div><div id="historyList" class="history-list"></div></form></dialog>
+    <template id="emptyState"><div class="empty-state"><span>&#x2726;</span><h2>&#xCCAB; &#xBA54;&#xBAA8;&#xB97C; &#xC2DC;&#xC791;&#xD574; &#xBCF4;&#xC138;&#xC694;</h2><p>&#x2018;&#xC0C8; &#xBA54;&#xBAA8;&#x2019;&#xB97C; &#xB204;&#xB974;&#xBA74; &#xC791;&#xC131; &#xB0B4;&#xC6A9;&#xC774; &#xC790;&#xB3D9;&#xC73C;&#xB85C; &#xC800;&#xC7A5;&#xB429;&#xB2C8;&#xB2E4;.</p></div></template>
+    <script src="app.js"></script>
+    <script>
+      // Service Worker 등록
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('sw.js').catch(() => {
+            console.log('Service Worker 등록 실패');
+          });
+        });
+      }
+      
+      // PWA 설치 프롬프트 처리
+      let deferredPrompt;
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+      });
+    </script>
+  </body>
+</html>
