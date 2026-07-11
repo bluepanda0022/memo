@@ -1,8 +1,8 @@
 {
-  "name": "블코 메모장",
+  "name": "메모장",
   "short_name": "메모장",
   "description": "간편한 메모 작성 및 관리 앱",
-  "start_url": "/index.html",
+  "start_url": "/memo",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
